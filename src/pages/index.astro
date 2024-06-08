@@ -1,0 +1,13 @@
+---
+import metaImage from "../../public/icons/icon-192.png";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { ThemeSelector } from "~/components/ThemeSelector";
+---
+
+<BaseLayout title="Astro" description="Astro Preact Template" image={metaImage}>
+  <h1>Astro</h1>
+  <h2>Theme Handler</h2>
+  You can edit this comopnent in
+  <code>./src/components/ThemeSelector.tsx</code>.
+  <ThemeSelector client:only="preact" />
+</BaseLayout>

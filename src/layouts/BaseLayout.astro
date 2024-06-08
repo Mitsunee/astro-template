@@ -1,0 +1,14 @@
+---
+import "~/styles/main.css";
+import type { PageMeta } from "~/types/meta";
+import Document from "./Document.astro";
+
+type Props = PageMeta;
+---
+
+<Document {...Astro.props}>
+  <main>
+    <slot />
+  </main>
+  <dialog id="modal-dialog"></dialog>
+</Document>

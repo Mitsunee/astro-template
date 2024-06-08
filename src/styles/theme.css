@@ -1,0 +1,52 @@
+:root {
+  --transition: 200ms ease-out;
+  --radius: 0.5rem;
+  --radius-large: 1rem;
+  --content-width: min(100vw, 1200px);
+  --page-padding: 0.2rem 1.25rem;
+
+  /** Fonts **/
+  --font-sans: sans-serif;
+  --font-title: sans-serif;
+  --font-mono: monospace;
+
+  /** Booleans! (see https://css-tricks.com/a-dry-approach-to-color-themes-in-css/) **/
+  --TRUE: initial;
+  --FALSE: ;
+
+  /** Theme Colours **/
+  --black: #000000;
+  --shadow: var(--theme-light, #00000050) var(--theme-dark, #000000a0);
+  --white: #ffffff;
+  --text: var(--theme-light, var(--black)) var(--theme-dark, var(--white));
+  --background: var(--theme-light, var(--white)) var(--theme-dark, #242424);
+  --primary: #ff8800;
+  --secondary: #ff5555;
+  --accent: #ff33ff;
+  --highlight: var(--theme-light, var(--shadow)) var(--theme-dark, #fcfaf750);
+}
+
+/** set booleans for themes **/
+:root,
+:root[data-theme="light"] {
+  --theme-light: var(--TRUE);
+  --theme-dark: var(--FALSE);
+}
+
+:root[data-theme="dark"] {
+  --theme-light: var(--FALSE);
+  --theme-dark: var(--TRUE);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-light: var(--FALSE);
+    --theme-dark: var(--TRUE);
+  }
+}
+
+@media (--mq-small) {
+  :root {
+    --page-padding: 0.25rem 1.75rem;
+  }
+}

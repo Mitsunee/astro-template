@@ -1,0 +1,51 @@
+---
+import { getImage } from "astro:assets";
+import type { PageMeta } from "~/types/meta";
+import "~/styles/theme.css";
+
+type Props = PageMeta;
+const pageIcon = `${Astro.url.origin}/favicon.svg`;
+const image = Astro.props.image
+  ? (await getImage({ src: Astro.props.image, format: "jpeg", width: 1200 }))
+      .src
+  : pageIcon;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="application-name" content="Astro Preact Template" />
+    <meta property="og:site_name" content="Astro Preact Template" />
+    {Astro.props.noRobots && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={Astro.url.href} />
+    <title>{Astro.props.title}</title>
+    <meta property="og:title" content={Astro.props.title} />
+    <meta name="twitter:title" content={Astro.props.title} />
+    <meta name="description" content={Astro.props.description} />
+    <meta property="og:description" content={Astro.props.description} />
+    <meta name="twitter:description" content={Astro.props.description} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:image" content={image} />
+    {
+      Astro.props.image && Astro.props.imageLarge && (
+        <meta name="twitter:card" content="summary_large_image" />
+      )
+    }
+    <meta name="theme-color" content="#ff780a" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import { initTheme } from "~/utils/initTheme";
+      import { attachDialogCloseEvent } from "~/utils/dialogBackdrop";
+
+      initTheme();
+      attachDialogCloseEvent();
+    </script>
+  </body>
+</html>

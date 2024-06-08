@@ -8,22 +8,49 @@
   "type": "module",
   "scripts": {
     "prepare": "simple-git-hooks",
-    "format": "prettier -w .",
-    "format:check": "prettier -c .",
+    "format": "prettier -w . --plugin=prettier-plugin-astro",
+    "format:check": "prettier -c . --plugin=prettier-plugin-astro",
     "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "lint:strict": "eslint --max-warnings 0 .",
-    "typecheck": "tsc",
-    "test": "uvu -r esbuild-register tests -i utils"
+    "dev": "astro dev",
+    "typecheck": "astro check && tsc --noEmit",
+    "test": "uvu -r esbuild-register tests -i utils",
+    "build:types": "astro sync",
+    "build": "astro build"
   },
   "nano-staged": {
-    "**/*.{js,cjs,mjs,ts,mts,cts,json,md,yaml}": [
+    "**/*.{js,jsx,ts,tsx,css,json,md,yml}": [
       "prettier -w"
+    ],
+    "**/*.astro": [
+      "prettier -w --plugin=prettier-plugin-astro"
     ]
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm nano-staged"
   },
+  "browserslist": [
+    "last 2 versions",
+    ">0.5% and not dead"
+  ],
+  "dependencies": {
+    "@astrojs/preact": "^3.4.0",
+    "@csstools/postcss-global-data": "^2.1.1",
+    "@nanostores/preact": "^0.5.1",
+    "astro": "^4.10.1",
+    "classcat": "^5.0.5",
+    "nanostores": "^0.10.3",
+    "postcss": "^8.4.38",
+    "postcss-preset-env": "^9.5.14",
+    "preact": "^10.22.0",
+    "react": "npm:@preact/compat@^17.1.2",
+    "react-dom": "npm:@preact/compat@^17.1.2",
+    "sharp": "0.32.6"
+  },
   "devDependencies": {
+    "@astrojs/check": "^0.7.0",
+    "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^7.12.0",
     "@typescript-eslint/parser": "^7.12.0",
     "esbuild": "^0.21.4",
@@ -31,8 +58,14 @@
     "eslint": "^8.57.0",
     "eslint-config-foxkit": "3.1.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-astro": "^1.2.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "nano-staged": "^0.8.0",
     "prettier": "^3.3.1",
+    "prettier-plugin-astro": "^0.14.0",
     "simple-git-hooks": "^2.11.1",
     "typescript": "5.4.5",
     "uvu": "^0.5.6"

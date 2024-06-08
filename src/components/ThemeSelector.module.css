@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 1.66rem;
+  padding: 2px;
+
+  @media (--mq-medium) {
+    height: 2.33rem;
+  }
+
+  @media (--mq-large) {
+    padding: 6px;
+  }
+
+  & button {
+    background-color: transparent;
+    border: 0px;
+    height: 100%;
+    color: inherit;
+    transition: color var(--transition);
+
+    & svg {
+      height: 100%;
+      width: auto;
+      aspect-ratio: 1;
+    }
+
+    &:hover,
+    &:focus {
+      color: var(--primary);
+    }
+
+    &.active {
+      color: var(--accent);
+    }
+  }
+}

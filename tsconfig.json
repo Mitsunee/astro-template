@@ -1,14 +1,24 @@
 {
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "moduleResolution": "Node",
-    "module": "ESNext",
-    "target": "ES2022",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "strict": true,
-    "noEmit": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "strictNullChecks": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/types.d.ts",
+    "src/env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.astro",
+    "**/*.mdx"
+  ],
+  "exclude": ["node_modules"]
 }

@@ -1,38 +1,71 @@
-# Foxkit Library Template
+# Mitsunee's Astro Preact Template
 
-This repository is a template for dual-published npm packages with [esbuild] and full [TypeScript] support.
+This repository is a template [Astro] websites using [Preact] for interactive components and full [TypeScript] support out of the box.
 
 ## Getting Started
 
-First make sure you have a recent version of Node.js (see [Releases](https://nodejs.dev/en/about/releases/)) and [pnpm] installed.
+Make sure you have [node.js] (version 20) and [pnpm] (version 9) installed. Install all dependencies and start the Development server:
 
-Create your repository using the button above. Once cloned move into the project directory and run `pnpm install`. You can now start development in "src/index.ts" or read the rest of this documentation to get more familiar with the build/publishing process and provided pre-configured tools.
+```shell
+pnpm install
+./scripts/install-sharp.sh
+pnpm dev # or pnpm build:types
+```
 
-Remember to replace README.md and adjust (at least the name) in the LICENSE file before publishing!
+## Testing
 
-## Configuring Builds
+These are the same commands also run in CI on every push:
 
-The build process contains three steps: A build script using [esbuild], d.ts files through `tsc` ([TypeScript]).
+```shell
+pnpm lint:strict
+pnpm format:check
+pnpm build:types && pnpm typecheck
+```
 
-The build script is a simple js file which can be freely adjusted. The provided configurations are for dual-publishing as native ES Modules with `.cjs` as fallback for older systems, while [TypeScript] takes care of providing types in d.ts files.
+<details>
+<summary>Full list of commands</summary>
 
-### Configuring package.json publishConfig
+```shell
+pnpm format # formats entire codebase
+pnpm format:check # checks formatting on entire codebase
+pnpm lint # standard lint check on entire codebase
+pnpm lint:fix # standard lint check on entire codebase with autofix enabled
+pnpm lint:strict # strict lint check on entire codebase
+pnpm dev # start dev server
+pnpm typecheck # run typechecks on entire codebase
+pnpm build:types # generates content/data collection types
+pnpm build # create production build
+```
 
-The build script uses the `"publishConfig"` to override and add keys in your production package.json file. This is achieved with a simple `Object.assign` call, so you can nest another `"publishConfig"` object inside to configure `npm publish` from there (note that this is slightly different from how pnpm handles this!). See the [pnpm docs](https://pnpm.io/package_json#publishconfig) for detailed information on available parameters that can be overriden.
+</details>
 
-When not using the `"exports"` key, in general `"main"` should be your cjs build, `"module"` your js (ESM) build and `"types"` should be added appropriately. Note that when using the `"exports"` key you should add `"types"` as the first key on every export to make sure [TypeScript] can find them. If you are exporting a file in a subdirectory of `./src` you may want to use the `"typesVersion"` key as a workaround for linking to the d.ts file as a workaround.
+## Themeing and Metadata
+
+This repository comes with a [Preact] component and init script to handle themeing. All themeing related variables are set in `src/styles/theme.css`. Pages are expected to use a layout from the `src/layouts` directly either based on `BaseLayout.astro` or using it directly. This makes sure the theme varaibles are available globally and all pages have a complete set of metadata.
+
+### Favicons
+
+It is recommended that your page uses a favicon in the SVG vector format, which allows you to create the rest of the icons as needed. Recommendations for icon sizes taken from ["How to Favicon in 2024: Six files that fit most needs"](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs).
+
+Tip: You can use inkscape to render your svg icon into PNG files like this:
+
+```shell
+inkscape -w 512 -o ./public/icons/icon-512.png ./public/favicon.svg
+inkscape -w 192 -o ./public/icons/icon-192.png ./public/favicon.svg
+inkscape -w 180 -o ./public/icons/apple-touch-icon.png ./public/favicon.svg
+```
 
 ## Tools
 
 ### ESLint
 
-[ESLint] is the go-to linter for JavaScript and TypeScript and is configured using [eslint-config-foxkit] and [eslint-config-prettier]. The config file uses the newer [Flat Config] style and is pre-configured with strict rulesets for JS and TS.
+[ESLint] is the go-to linter for JavaScript and TypeScript and is configured using [eslint-config-foxkit] and [eslint-config-prettier]. The config file uses the old config system for now (still waiting for updates for some of the used plugins) and is pre-configured with strict rulesets for JS and TS.
 
 Run the `pnpm lint` or `pnpm lint:strict` scripts or install the editor integration for your code editor, such as the [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) to run ESLint.
 
 ### Prettier
 
-[Prettier] is an automatic code-formatter and is configured to auto-format all appropriate file types when creating a commit with git through [simple-git-hooks] and [nano-staged].
+[Prettier] is an automatic code-formatter and is configured to auto-format all appropriate file types when creating a commit with git through [simple-git-hooks] and [nano-staged]. Note that a plugin is needed (see package.json for example) to format Astro files!
 
 If you would like to remove git hooks simply uninstall the packages, remove their settings and the `"prepare"` script from package.json and delete the git hook file:
 
@@ -47,43 +80,24 @@ Installing the editor integration for your code editor, such as the [VSCode Exte
 
 This repository comes with the test runner [uvu] set up to run from the `"tests"` directory. You can add any testing utilities in `"tests/utils"` (the `utils` directory is ignored by uvu). Test files fully support TypeScript thanks to `esbuild-register`. To run your tests simply run the command `pnpm test`.
 
-## Publishing
+## Production build
 
-- You should commit (or stash) any changes and ran `pnpm lint` and any tests (if you added any) before publishing!
-- Increase the `"version"` key in your package.json appropriately (see [About semantic versioning](https://docs.npmjs.com/about-semantic-versioning)) then push a commit with this version:
+Simply run the build script:
 
-```sh
-# replace vX.X.X with your version!
-git add package.json
-git commit -m "vX.X.X"
-```
-
-- Now build your package, move into the dist directory and publish:
-
-```sh
+```shell
 pnpm build
-cd dist
-npm publish # you can use --dry-run to test that all your files are included properly!
 ```
 
-- If this succeeded and your package is now published you can push the versioning commit and create a tag
+To test a production build locally use `pnpm astro preview`.
 
-```sh
-cd .. # exit dist directory
-git push
-git tag "vX.X.X" -m "vX.X.X"
-git push --tags
-```
-
-- Remember to create a Release on Github!
-
-[esbuild]: https://esbuild.github.io/
+[astro]: https://docs.astro.build/en/getting-started/
+[preact]: https://preactjs.com/guide/v10/getting-started
 [TypeScript]: https://www.typescriptlang.org/
+[node.js]: https://nodejs.org/en/
 [pnpm]: https://pnpm.io/
 [ESLint]: https://eslint.org/
 [eslint-config-foxkit]: https://github.com/foxkit-js/eslint-config-foxkit
 [eslint-config-prettier]: https://github.com/prettier/eslint-config-prettier
-[Flat Config]: https://eslint.org/docs/latest/use/configure/configuration-files-new
 [Prettier]: https://prettier.io/
 [simple-git-hooks]: https://github.com/toplenboren/simple-git-hooks
 [nano-staged]: https://github.com/usmanyunusov/nano-staged

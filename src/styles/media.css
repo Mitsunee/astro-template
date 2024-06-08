@@ -1,0 +1,3 @@
+@custom-media --mq-large (min-width: 992px);
+@custom-media --mq-medium (min-width: 768px);
+@custom-media --mq-small (min-width: 512px);

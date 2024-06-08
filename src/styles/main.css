@@ -1,0 +1,72 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body {
+  margin: 0px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-width: 0px;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-sans);
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+body > main {
+  flex-grow: 1;
+  min-width: 0px;
+}
+
+.title,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+a,
+.link {
+  color: var(--primary);
+  transition: color var(--transition);
+
+  &:hover,
+  &:focus {
+    color: var(--accent);
+  }
+}
+
+#modal-dialog {
+  background: transparent;
+  border: 0px;
+  padding: 0px;
+  color: var(--text);
+  font-family: var(--font-sans);
+
+  &::backdrop,
+  .backdrop {
+    background-color: var(--shadow);
+    backdrop-filter: blur(5px);
+  }
+}
