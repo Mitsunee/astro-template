@@ -1,14 +1,11 @@
 {
-  "name": "library-template",
+  "name": "astro-template",
   "version": "0.0.0",
   "description": "",
-  "keywords": [],
   "author": "YOUR_NAME_HERE",
-  "repository": "foxkit-js/library-template",
   "license": "MIT",
   "private": true,
   "type": "module",
-  "main": "src/index.ts",
   "scripts": {
     "prepare": "simple-git-hooks",
     "format": "prettier -w .",
@@ -16,8 +13,7 @@
     "lint": "eslint .",
     "lint:strict": "eslint --max-warnings 0 .",
     "typecheck": "tsc",
-    "test": "uvu -r esbuild-register tests -i utils",
-    "build": "node build.js && tsc -p tsconfig.build.json"
+    "test": "uvu -r esbuild-register tests -i utils"
   },
   "nano-staged": {
     "**/*.{js,cjs,mjs,ts,mts,cts,json,md,yaml}": [
@@ -26,29 +22,6 @@
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm nano-staged"
-  },
-  "files": [
-    "*.d.ts",
-    "index.*"
-  ],
-  "clean-publish": {
-    "packageManager": "pnpm",
-    "withoutPublish": true,
-    "tempDir": "dist",
-    "fields": [
-      "scripts",
-      "nano-staged",
-      "simple-git-hooks"
-    ]
-  },
-  "publishConfig": {
-    "publishConfig": {
-      "access": "public"
-    },
-    "private": false,
-    "main": "index.cjs",
-    "module": "index.js",
-    "types": "index.d.ts"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.12.0",
