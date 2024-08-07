@@ -8,8 +8,5 @@ export default defineConfig({
     syntaxHighlight: "prism",
     gfm: true
   },
-  integrations: [preact()],
-  experimental: {
-    contentCollectionJsonSchema: true
-  }
+  integrations: [preact()]
 });
