@@ -1,25 +1,39 @@
+const foxkitOverrides = require("eslint-config-foxkit/legacy/overrides");
+const foxkitReactOverrides = require("eslint-config-foxkit-react/legacy/overrides");
+
+const foxkitTS = foxkitOverrides.typescript;
+foxkitTS.files.push("**/*.astro");
+const foxkitJSX = foxkitReactOverrides.jsx;
+foxkitJSX.files.push("**/*.astro");
+
 module.exports = {
   parserOptions: { sourceType: "module" },
   extends: [
-    "foxkit/strict",
-    "foxkit/ts-strict",
-    "foxkit/preact",
+    "foxkit",
+    "foxkit-react/preact",
     "plugin:astro/recommended",
     "prettier"
   ],
   rules: {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      { extensions: [".jsx", ".tsx", ".astro"] }
+    ]
   },
   overrides: [
+    // Configure TS
     {
-      files: ["**/*.ts?(x)", "**/*.astro"],
-      plugins: ["@typescript-eslint"],
-      parser: "@typescript-eslint/parser",
+      files: foxkitTS.files,
       parserOptions: {
         project: "tsconfig.json",
         tsconfigRootDir: __dirname
       }
     },
+    // patched overrides
+    foxkitJSX,
+    foxkitTS,
+    // Astro plugin
     {
       files: ["**/*.astro"],
       parser: "astro-eslint-parser",
@@ -34,6 +48,7 @@ module.exports = {
         "react/jsx-key": "off"
       }
     },
+    // Import plugins
     {
       files: ["**/*.mjs", "**/*.ts?(x)", "**/*.astro"],
       extends: ["plugin:import/recommended", "plugin:import/typescript"],
