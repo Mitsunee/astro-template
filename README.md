@@ -4,7 +4,7 @@ This repository is a template [Astro] websites using [Preact] for interactive co
 
 ## Getting Started
 
-Make sure you have [node.js] (version 20) and [pnpm] (version 9) installed. Install all dependencies and start the Development server:
+Make sure you have [node.js] (version 22) and [pnpm] (version 9) installed. Install all dependencies and start the Development server:
 
 ```shell
 pnpm install
