@@ -3,6 +3,4 @@ dist
 .env
 .env.*
 .astro
-.astro-cache
-.pnpm-store
 

@@ -1,6 +1,4 @@
 dist
 pnpm-lock.yaml
 .astro
-.astro-cache
-.pnpm-store
 public
