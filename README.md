@@ -8,7 +8,6 @@ Make sure you have [node.js] (version 22) and [pnpm] (version 9) installed. Inst
 
 ```shell
 pnpm install
-./scripts/install-sharp.sh
 pnpm dev # or pnpm build:types
 ```
 
