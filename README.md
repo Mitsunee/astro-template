@@ -58,7 +58,7 @@ inkscape -w 180 -o ./public/icons/apple-touch-icon.png ./public/favicon.svg
 
 ### ESLint
 
-[ESLint] is the go-to linter for JavaScript and TypeScript and is configured using [eslint-config-foxkit] and [eslint-config-prettier]. The config file uses the old config system for now (still waiting for updates for some of the used plugins) and is pre-configured with strict rulesets for JS and TS.
+[ESLint] is the go-to linter for JavaScript and TypeScript and is configured using [eslint-config-foxkit] and [eslint-config-prettier]. The config file uses the new FlatConfig system and is pre-configured for JavaScript (ESM), TypeScript and [Preact].
 
 Run the `pnpm lint` or `pnpm lint:strict` scripts or install the editor integration for your code editor, such as the [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) to run ESLint.
 
@@ -87,7 +87,7 @@ Simply run the build script:
 pnpm build
 ```
 
-To test a production build locally use `pnpm astro preview`.
+Tip: To test a production build locally use `pnpm astro preview`.
 
 [astro]: https://docs.astro.build/en/getting-started/
 [preact]: https://preactjs.com/guide/v10/getting-started
