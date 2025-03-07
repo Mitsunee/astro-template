@@ -71,10 +71,11 @@ const astroCfg = astroPlugin.configs.recommended
     }
   });
 
-/**
+/*
  * Patch import plugin config with custom file extensions and configure rules
- * @type {import("typescript-eslint").ConfigWithExtends}
  */
+const extensions = [".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx"];
+/** @type {import("typescript-eslint").ConfigWithExtends} */
 const importCfg = {
   name: "import/custom-config",
   files: ["**/*.mjs", "**/*.js?(x)", "**/*.ts?(x)", "**/*.astro"],
@@ -91,17 +92,11 @@ const importCfg = {
     "import/no-self-import": "error",
     "import/no-default-export": "error"
   },
-  languageOptions: {
-    ecmaVersion: foxkit.base.languageOptions.ecmaVersion
-  },
+  languageOptions: { ecmaVersion: foxkit.base.languageOptions.ecmaVersion },
   settings: {
     "import/internal-regex": "^(astro:|~)",
-    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
-    "import/resolver": {
-      node: {
-        extensions: [".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx"]
-      }
-    }
+    "import/parsers": { "@typescript-eslint/parser": extensions },
+    "import/resolver": { node: { extensions } }
   }
 };
 
