@@ -13,12 +13,11 @@
     }
   },
   "include": [
-    "src/types.d.ts",
-    "src/env.d.ts",
+    ".astro/types.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.astro",
     "**/*.mdx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
