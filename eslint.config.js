@@ -51,6 +51,9 @@ const astroCfg = astroPlugin.configs.recommended
       // someone put `null` here which is not valid and breaks linting
       cfg.languageOptions.parserOptions.project = true;
     }
+    if (cfg.name == "astro/base") {
+      cfg.languageOptions.parserOptions.parser = tsEslint.parser;
+    }
     return cfg;
   })
   .concat({
